@@ -34,7 +34,7 @@ function getUsers() {
 
 export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [isModalLoading, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [todos, setTodos] = useState<Todo[]>([]);
   const [title, setTitle] = useState('');
@@ -49,7 +49,6 @@ export const App: React.FC = () => {
       .then(setTodos)
       .catch(error => alert(error.message))
       .finally(() => {
-        setIsModalOpen(false);
         setIsLoading(false);
       });
   }, []);
@@ -59,7 +58,6 @@ export const App: React.FC = () => {
       .then(setUsers)
       .catch(error => alert(error.message))
       .finally(() => {
-        setIsModalOpen(false);
         setIsLoading(false);
       });
   }, []);
@@ -103,7 +101,7 @@ export const App: React.FC = () => {
         </div>
       </div>
 
-      {isModalLoading && selectId && selectUserId && (
+      {isModalOpen && selectId && selectUserId && (
         <TodoModal
           isLoading={isLoading}
           setIsModalOpen={setIsModalOpen}
